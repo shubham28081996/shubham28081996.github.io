@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+      <style>
+    body {
+      margin: 0px;
+    }
+
+    .main {
+      height: 50px;
+    }
+
+    .navbar {
+      height: 50px;
+      background-color: #2874f0;
+
+      display: flex;
+      padding-left: 300px;
+      padding-right: 300px;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .flipkart_logo {
+      width: 100px;
+    }
+
+    .search_logo {
+      width: 22px;
+    }
+    input {
+      width: 500px;
+      height: 25px;
+
+      border: solid 1px white;
+    }
+    .navbar_rhs {
+      display: flex;
+      gap: 20px;
+
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      padding-left: 180px;
+    }
+
+    .search_btn {
+      background-color: white;
+      border: solid 1px white;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+    }
+
+    #product-rating{
+        background-color: green;
+        color: white;
+        width: 40px;
+    }
+    .product_details{
+        display: flex;
+        height: 800px;
+        
+        margin-left: 300px;
+        margin-right: 300px;
+        margin-top: 50px;
+        gap: 20px;
+    }
+
+    .product_lhs{
+        height: 550px;
+        
+        width: 500px;
+    }
+    
+    .product_rhs{
+        
+        
+        width: 850px;
+        height: 550px;
+    }
+
+    #product-img{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 300px;
+    }
+
+    .buy_button{
+        display: flex;
+        height: 50px;
+        margin-top: 15px;
+        gap: 10px;
+    }
+
+    .add{
+        width: 50%;
+        font-size: 150%;
+        color: white;
+        border: none;
+        background-color: #ff8f00;
+    }
+
+    .buy{
+        width: 50%;
+        font-size: 150%;
+        color: white;
+        border: none;
+        background-color: #fb641b ;
+    }
+
+    .product_image{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+      </style>
+  </head>
+  <body>
+
+    <div class="main">
+        <div class="navbar">
+          <div class="logo">
+            <img
+              class="flipkart_logo"
+              src="https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png"
+              alt=""
+            />
+          </div>
+  
+          <div class="search">
+            <input type="text" placeholder="Search for Products, Brands and more" />
+  
+            <button  class="search_btn"><img class="search_logo" src="./assets/search.svg" alt="" /></button>
+          </div>
+  
+          <div class="navbar_rhs">
+            <div>Shubham</div>
+            <div>More</div>
+            <a href="#" style="color: white; text-decoration: none;"><div>Cart</div></a>
+          </div>
+        </div>
+        </div>
+        
+        <div class="product_details">
+            <div class="product_lhs">
+                <div class="product_image"></div>
+                <div class="buy_button">
+                    <button onclick="addToCart()" class="add">Add to cart</button>
+                    <button onclick="buyProduct()" class="buy">Buy now</button>
+                </div>
+            </div>
+
+            <div class="product_rhs">
+                <div class="product_info"></div>
+                <div class="offers">
+                    <h3>Available offers</h3>
+                    <p><b>Bank Offer</b> 10% off on ICICI Bank Credit Cards, up to ₹750. On orders of ₹5000 and aboveT&C</p>
+                    <p><b>Bank Offer</b> 10% off on ICICI Bank Debit Cards, up to ₹500. On orders of ₹5000 and aboveT&C</p>
+                    <p><b>Special Price</b> Get extra ₹473 off (price inclusive of discount)T&C</p>
+
+                </div>
+                <div class="descriptions">
+                    <h3>Description</h3>
+                    Galaxy A22 , the new awesome A series device comes with a 48MP OIS (Optical Image stabilisation) Quad Camera
+                    that provides sharp and steady pictures and videos evertime you shoot, segment best HD+ SuperAMOLED 90Hz
+                    display with 600 Nits High Brightness mode for a bright, clear and smooth viewing experience be it while
+                    watching your favorite movies, scrolling on social media or gaming. It also sports a long lasting 5000 mAh
+                    battery with fast charging. Galaxy A22 comes with the latest OneUI 3.1 on Android 11 out of the box packed
+                    with defence grade Knox security, and Samsung Pay (NFC) for simple, secure payments right from your phone.
+
+                </div>
+            </div>
+        </div>
+
+  </body>
+</html>
+
+<script>
+    var product = JSON.parse(localStorage.getItem("clicked_product"))
+    
+    var image_div = document.querySelector(".product_image");
+    var img = document.createElement('img');
+    img.src = product.img;
+    img.id = 'product-img'
+    image_div.append(img);
+
+    var product_info = document.querySelector('.product_info');
+
+    var title = document.createElement('p')
+    title.innerText = product.name;
+    title.id = 'product-title';
+
+    var rating = document.createElement('p')
+    rating.innerText = product.rating;
+    rating.id = 'product-rating';
+
+    var price = document.createElement('p')
+    price.innerText = product.price;
+    price.id = 'product-price';
+
+    product_info.append(title, rating, price);
+
+
+function buyProduct(){
+    alert("Thank you for shopping, item will be delivered to you soon!")
+}
+
+function addToCart(){
+    alert("Your item has been added to cart!")
+}
+</script>
+
