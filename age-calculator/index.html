@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Age Calculator</title>
-        <link rel="stylesheet" href="index.css">
-    </head>
-    <body>
-        <div class="container">
-            <form>
-                <div class="heading">
-                    <h4>Age Calculator</h4>
-                
+
+<head>
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <div class="heading">
+                <h4>Age Calculator</h4>
+
                 <div class="block">
                     <p class="title">Date</p>
                     <input type="text" name="date" id="date" placeholder="dd" minlength="1" maxlength="2" required>
@@ -22,17 +24,49 @@
                     <p class="title">Year</p>
                     <input type="text" name="year" id="year" placeholder="yyyy" minlength="4" maxlength="4" required>
                 </div>
-                </div>
-                <div class="heading">
-                    <input type="button" name="submit" value="Submit" onclick="age()" />
-                </div>
-                <div class="result" id="res"></div>
-            </form>
-        </div>
+            </div>
+            <div class="heading">
+                <input type="button" name="submit" value="Submit" onclick="age()" />
+            </div>
+            <div class="result" id="res"></div>
+        </form>
+    </div>
 
 
-        <script type="text/javascript">
-        function age(){     
+    <script type="text/javascript">
+        function validateDate(d1, m1, y1) {
+            var arr = [1, ""]
+            if (d1 < 1 || d1 > 31) {
+                arr = [0, "Invalid Day. It Should be between 1-31"];
+                return arr;
+            }
+            if (m1 < 1 || m1 > 12) {
+                arr = [0, "Invalid Month. It Should be between 1-12"];
+                return arr;
+            }
+            //February 
+            if (m1 == 2 && d1 > 29) {
+                arr = [0, "Invalid Date. Feb Should be in between 1-29"];
+                return arr;
+            }
+            if (y1 < 1) {
+                arr = [0, "Invalid Year. It should be positive number."];
+                return arr;
+            }
+            if (m1 == 2 && d1 == 29) {
+                //Leap Year Case
+                if ((y1 % 4 == 0) && (y1 % 100 != 0) || (y1 % 400 == 0)) {
+                    arr = [1, ""];
+                    return arr;
+                } else {
+                    arr = [0, "Invalid Date. Only Leap Year has Feb 29."];
+                    return arr;
+                }
+            }
+
+            return arr;
+        }
+        function age() {
             var d1 = document.getElementById("date").value;
             var m1 = document.getElementById("month").value;
             var y1 = document.getElementById("year").value;
@@ -44,23 +78,32 @@
 
             var month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-            if(d1>d2){
-                d2 = d2 + month[m2 - 1];
-                m2 = m2 - 1;
+            var resp = validateDate(d1, m1, y1);
+            if (resp[0] == 1) {
+                // Calculate Age Now
+                if (d1 > d2) {
+                    d2 = d2 + month[m2 - 1];
+                    m2 = m2 - 1;
+                }
+
+                if (m1 > m2) {
+                    m2 = m2 + 12;
+                    y2 = y2 - 1;
+                }
+
+                var d = d2 - d1;
+                var m = m2 - m1;
+                var y = y2 - y1;
+
+                document.getElementById("res").innerHTML = "  Your age is" + " " + y + " - Year" + " " +
+                    + m + " - Month" + " " + d + " - Day";
+            } else {
+                //Display Error Message
+                document.getElementById("res").innerHTML = resp[1];
             }
 
-            if(m1 > m2){
-                m2 = m2 + 12;
-                y2 = y2 - 1;
-            }
-
-            var d = d2 - d1;
-            var m = m2 - m1;
-            var y = y2 - y1;
-            
-            document.getElementById("res").innerHTML = "  Your age is" + " "+ y + " - Year"+" "+ 
-            + m + " - Month" + " "+d + " - Day";
         }
-        </script>
-    </body>
+    </script>
+</body>
+
 </html>
